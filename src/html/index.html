@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Energy
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="../css/now-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <link href="../css/home.css" rel="stylesheet" />
+  <!-- Per le chart -->
+  <!--link href="../demo/demo.css" rel="stylesheet" /-->
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="orange">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+
+        <!-- Per centrare il logo è stato aggiunto lo style a mano, se cambiano le dimensioni delle immagini si deve anche rifare il calcolo del margine-->
+        <!--jdenticon.update('canvas#img'); quando cambia l'indirizzo-->
+        <canvas id="img" data-jdenticon-value="0xdD14F1405e4B139f98AA7969bA866AD6D22702FB" style="margin-left: calc(50% - 50px);" class="rounded-circle" width="100" height="100"></canvas> 
+        <a href="#" class="simple-text logo-normal text-center">
+          ADDRESS
+        </a>
+      </div>
+
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="active" id="home-button">
+            <a href="#" onClick="home(); return false;">
+              <i class="fas fa-home"></i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li id="history-button">
+            <a href="#" onClick="history(); return false;">
+              <i class="fas fa-book"></i>
+              <p>History</p>
+            </a>
+          </li>
+          <li id="storage-button">
+            <a href="#" onClick="storage(); return false;">
+              <i class="fas fa-database"></i>
+              <p>Virtual Storage</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#pablo">user page</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" id="search" placeholder="Search account statistic...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-search"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+      <!-- Qui va la parte caricata dinamicamente-->
+      <div id="dinamic-content">
+        
+      </div>
+      
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav>
+            <ul>
+              <li>
+                <a href="#">
+                  About Us
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>, Designed by
+            <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../js/core/jquery.min.js"></script>
+  <script src="../js/core/popper.min.js"></script>
+  <script src="../js/core/bootstrap.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../js/now-ui-dashboard.min.js?v=1.1.0" type="text/javascript"></script>
+  <!-- Per chart! -->
+  <script src="../demo/demo.js"></script>
+  <!-- Chart JS -->
+  <script src="../js/plugins/chartjs.min.js"></script>
+
+  <script src="../js/history.js"></script>
+  <script src="../js/home.js"></script>
+  <script src="../js/controller.js"></script>
+
+  <!--Per la scelta delle icone identicon-->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jdenticon@2.1.0"></script>
+</body>
+
+</html>
