@@ -52,7 +52,14 @@ App = {
         console.log('Error in myEvent event handler: ' + error);
       else
         if(eventResult.event == "StorageCreated"){
-            Storage.addToList(eventResult.args);
+          Storage.addToList(eventResult.args);
+          if(PageManager.current == "storage") PageManager.storage();
+          else if(PageManager.current == "mystorage" && eventResult.args.owner == App.userAccount) PageManager.mystorage();
+
+        } else if(eventResult.event == "StorageEdited"){
+          if(PageManager.current == "storage") PageManager.storage();
+          else if(PageManager.current == "mystorage" && eventResult.args.owner == App.userAccount) PageManager.mystorage();
+
         } else if(eventResult.event == "Sell"){
             web3.eth.getBlock(eventResult.blockNumber, function(error, result){
                 if(!error){
@@ -60,6 +67,10 @@ App = {
                 }else
                     console.error(error);
             });
+            if(PageManager.current == "history") PageManager.history();
+            else if(PageManager.current == "home" && eventResult.args.prosumerAddress == App.userAccount) PageManager.home();
+            else if(PageManager.current == "mystorage" && eventResult.args.storageOwner == App.userAccount) PageManager.mystorage();
+
         } else if(eventResult.event == "Buy"){
             web3.eth.getBlock(eventResult.blockNumber, function(error, result){
                 if(!error){
@@ -67,6 +78,12 @@ App = {
                 }else
                     console.error(error);
             });
+            if(PageManager.current == "history") PageManager.history();
+            else if(PageManager.current == "home" && eventResult.args.prosumerAddress == App.userAccount) PageManager.home();
+            else if(PageManager.current == "mystorage" && eventResult.args.storageOwner == App.userAccount) PageManager.mystorage();
+
+        } else {
+          console.error("Evento inaspettato "+event);
         }
     });
   },
@@ -81,7 +98,7 @@ App = {
         $(".energy-manager").show();
     }
     //Prima sezione che verrà caricata
-    home();
+    PageManager.home();
   },
 
   giveMeKwh: async function(){
@@ -91,43 +108,52 @@ App = {
 
 }
 
-function home(){
-	cleanWindow();
-	$('#home-button').addClass('active');
+PageManager = {
+  current: null,
+
+  home: function(){
+    PageManager.current = "home";
+    PageManager.cleanWindow();
+    $('#home-button').addClass('active');
     $("#dinamic-content").load("home.html");
     $("input#search").attr("placeholder", "Search account statistic...");
     $("#page-title").html("User page");
     UserProfile.render();
-}
+  },
 
-function history(){
-	cleanWindow();
-	$('#history-button').addClass('active');
+  history: function(){
+    PageManager.current = "history";
+    PageManager.cleanWindow();
+    $('#history-button').addClass('active');
     $("#dinamic-content").load("history.html");
     $("input#search").attr("placeholder", "Search account history...");
     $("#page-title").html("History");
     History.render();
-}
+  },
 
-function storage(){
-	cleanWindow();
-	$('#storage-button').addClass('active');
+  storage: function(){
+    PageManager.current = "storage";
+    PageManager.cleanWindow();
+    $('#storage-button').addClass('active');
     $("#dinamic-content").load("storage.html");
     $("input#search").attr("placeholder", "Search storage...");
     $("#page-title").html("Storage page");
     Storage.render();
-}
+  },
 
-function mystorage(){
-    cleanWindow();
+  mystorage: function(){
+    PageManager.current = "mystorage";
+    PageManager.cleanWindow();
     $('#my-storage-button').addClass('active');
     $("#dinamic-content").load("my-storage.html");
     $("input#search").attr("placeholder", "Search...");
     $("#page-title").html("My Storage page");
     MyStorage.render();
+  },
+
+  cleanWindow: function(){
+    $('#dinamic-content').html('');
+    $('.sidebar-wrapper >> li').removeClass('active');
+  }
 }
 
-function cleanWindow(){
-	$('#dinamic-content').html('');
-	$('.sidebar-wrapper >> li').removeClass('active');
-}

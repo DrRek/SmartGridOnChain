@@ -19,5 +19,5 @@ MyStorage = {
 }
 
 function getNewStorageData(){
-	myStorage.createMyStorage($("[name='full-capacity']").val(), $("[name='buy-price']").val(), $("[name='sell-price']").val(), $("[name='date']").val());
+	MyStorage.createMyStorage($("[name='full-capacity']").val(), $("[name='buy-price']").val(), $("[name='sell-price']").val(), $("[name='date']").val());
 }
