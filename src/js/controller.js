@@ -124,7 +124,7 @@ function mystorage(){
     $("#dinamic-content").load("my-storage.html");
     $("input#search").attr("placeholder", "Search...");
     $("#page-title").html("My Storage page");
-    myStorage.render();
+    MyStorage.render();
 }
 
 function cleanWindow(){
