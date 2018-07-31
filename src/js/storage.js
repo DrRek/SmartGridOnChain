@@ -1,13 +1,17 @@
-storageDisplay = {
+Storage = {
   storages: [],
 
   render: async function(){
     let instance = await App.contracts.Energy.at(App.contractAddress);
-    for(var i = 0; i<storageDisplay.storages.length; i++){
-      let storage = await instance.getStorageVirtuale(storageDisplay.storages[i].owner, storageDisplay.storages[i].id);
-      storageDisplay.addStorageEntry(storageDisplay.storages[i].owner, storageDisplay.storages[i].id, storage[2], storage[1], storage[6], storage[5]-storage[6]);
+    for(var i = 0; i<Storage.storages.length; i++){
+      let storage = await instance.getStorageVirtuale(Storage.storages[i].owner, Storage.storages[i].id);
+      Storage.addStorageEntry(Storage.storages[i].owner, Storage.storages[i].id, storage[2], storage[1], storage[6], storage[5]-storage[6]);
     }
     jdenticon.update('canvas.storageImg');
+  },
+
+  addToList: function(storage){
+    Storage.storages.push(storage);
   },
 
 	addStorageEntry: function(address, id, acquisto, vendita, acquistabili, vendibili){
@@ -21,8 +25,8 @@ storageDisplay = {
                   '<i class="fas fa-archive"></i>'+
                 '</button>'+
                 '<div class="dropdown-menu dropdown-menu-right">'+
-                  '<a class="dropdown-item" onclick="storageSellOrBuy.buyModalShow(\''+address+'\',\''+id+'\')">Buy</a>'+
-                  '<a class="dropdown-item" onclick="storageSellOrBuy.sellModalShow(\''+address+'\',\''+id+'\')">Sell</a>'+
+                  '<a class="dropdown-item" onclick="StorageTransactions.buyModalShow(\''+address+'\',\''+id+'\')">Buy</a>'+
+                  '<a class="dropdown-item" onclick="StorageTransactions.sellModalShow(\''+address+'\',\''+id+'\')">Sell</a>'+
                 '</div>'+
               '</div>'+
             '</div>'+
@@ -52,49 +56,45 @@ storageDisplay = {
           '</div>'+
         '</div>';
     $('#storage-container').append(toAppend);
-  },
-
-  addToList: function(storage){
-    storageDisplay.storages.push(storage);
   }
 }
 
-storageSellOrBuy = {
+StorageTransactions = {
   selected: null,
 
   buyModalShow: async function(address, id){
     let instance = await App.contracts.Energy.at(App.contractAddress);
-    storageSellOrBuy.selected = await instance.getStorageVirtuale(address, id);  
+    StorageTransactions.selected = await instance.getStorageVirtuale(address, id);  
     $("#modal-title").html("Buy from "+address);
     $("#modal-button").html("Buy");
     $("[name='kwh']").prop('disabled', false);
     $("[name='eth']").prop('disabled', true);
-    $("[name='kwh']").attr("onkeyup","storageSellOrBuy.calculateEthBuy()");
-    $("#modal-button").attr("onclick","storageSellOrBuy.buy('"+address+"',"+id+")");
-    storageSellOrBuy.calculateEthBuy();
+    $("[name='kwh']").attr("onkeyup","StorageTransactions.calculateEthBuy()");
+    $("#modal-button").attr("onclick","StorageTransactions.buy('"+address+"',"+id+")");
+    StorageTransactions.calculateEthBuy();
     $("#modal-trigger").click();
   },
 
   buy: async function(address, id){
     let instance = await App.contracts.Energy.at(App.contractAddress);
-    instance.buyFromStorageVirtuale(address, id, $("[name='kwh']").val(), {value: storageSellOrBuy.calculateEthBuy()});
+    instance.buyFromStorageVirtuale(address, id, $("[name='kwh']").val(), {value: StorageTransactions.calculateEthBuy()});
   },
 
   calculateEthBuy: function(){
-    $("[name='eth']").val($("[name='kwh']").val() * storageSellOrBuy.selected[2]);
-    return $("[name='kwh']").val() * storageSellOrBuy.selected[2];
+    $("[name='eth']").val($("[name='kwh']").val() * StorageTransactions.selected[2]);
+    return $("[name='kwh']").val() * StorageTransactions.selected[2];
   },
 
   sellModalShow: async function(address, id){
     let instance = await App.contracts.Energy.at(App.contractAddress);
-    storageSellOrBuy.selected = await instance.getStorageVirtuale(address, id);  
+    StorageTransactions.selected = await instance.getStorageVirtuale(address, id);  
     $("#modal-title").html("Sell to "+address);
     $("#modal-button").html("Sell");
     $("[name='kwh']").prop('disabled', false);
     $("[name='eth']").prop('disabled', true);
-    $("[name='kwh']").attr("onkeyup","storageSellOrBuy.calculateEthSell()");
-    $("#modal-button").attr("onclick","storageSellOrBuy.sell('"+address+"',"+id+")");
-    storageSellOrBuy.calculateEthSell();
+    $("[name='kwh']").attr("onkeyup","StorageTransactions.calculateEthSell()");
+    $("#modal-button").attr("onclick","StorageTransactions.sell('"+address+"',"+id+")");
+    StorageTransactions.calculateEthSell();
     $("#modal-trigger").click();
   },
 
@@ -104,7 +104,7 @@ storageSellOrBuy = {
   },
 
   calculateEthSell: function(){
-    $("[name='eth']").val($("[name='kwh']").val() * storageSellOrBuy.selected[1]);
-    return $("[name='kwh']").val() * storageSellOrBuy.selected[1];
+    $("[name='eth']").val($("[name='kwh']").val() * StorageTransactions.selected[1]);
+    return $("[name='kwh']").val() * StorageTransactions.selected[1];
   }
 }

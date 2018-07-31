@@ -1,5 +1,11 @@
-historyTable = {
+History = {
 	history: [],
+
+	render: function(){
+		for(var i = 0; i < History.history.length; i++){
+			History.addToHistoryTable(History.history[i]);
+		}
+	},
 
 	addToHistory: function(prosumer, storage, id, type, quantity, charge, date) {
 		var temp = [];
@@ -10,7 +16,7 @@ historyTable = {
 		temp[4] = quantity;
 		temp[5] = charge;
 		temp[6] = date;
-		historyTable.history.push(temp);
+		History.history.push(temp);
 	},
 
 	addToHistoryTable: function(element){
@@ -20,12 +26,6 @@ historyTable = {
 		waitForEl("tbody#history", function() {
   			$("tbody#history").append("<tr>"+prosumerString+storageString+"<td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td>"+element[5]+"</td><td class='text-right'>"+element[6]+"</td></tr>");
 		});
-	},
-
-	render: function(){
-		for(var i = 0; i < historyTable.history.length; i++){
-			historyTable.addToHistoryTable(historyTable.history[i]);
-		}
 	} 
 };
 
