@@ -1,7 +1,43 @@
-chart = {
+UserProfile = {
 	kWhBarChart: null,
 	storagePieChart: null,
 	balanceLineChart: null,
+
+	render: async function(){
+		let instance = await App.contracts.Energy.at(App.contractAddress);
+	    let currentKwh = await instance.getPossessedkWh(App.userAccount);
+	    $("#balanceKwh").text(currentKwh);
+	    web3.eth.getBalance(App.userAccount, function(error, result){
+	        if(!error)
+	            $("#balanceEth").text(result);
+	        else
+	            console.error("Errore durante la richiesta dell'user balance "+error);
+	    });
+	    UserProfile.initChart();
+	    
+	    /* Commentare codice sottostante per eliminare i valori demo */
+	    UserProfile.updateKwhBarChartData([5, 15, 14, 20, 27, 45, 10, 5, 7, 10, 74, 21], [35, 72, 3, 17, 10, 12, 44, 10, 19, 20, 77, 66]);
+	    UserProfile.updateStoragePieChartData(['Primo storage','Secondo storage','Altri'], [10, 20, 30]);
+	    UserProfile.updateBalanceLineChartData([5, 10, 15, 20, 10, 5, 10],[10, 20, 15, 5, 15, 20, 10]);
+	},
+
+	updateKwhBarChartData: function(buyed, sold){
+		kWhBarChart.data.datasets[0].data = buyed;
+		kWhBarChart.data.datasets[1].data = sold;
+		kWhBarChart.update();
+	},
+
+	updateStoragePieChartData: function(labels, values){
+		storagePieChart.data.labels = labels;
+		storagePieChart.data.datasets[0].data = values;
+		storagePieChart.update();
+	},
+
+	updateBalanceLineChartData: function(earned, spent){
+		balanceLineChart.data.datasets[0].data = earned;
+		balanceLineChart.data.datasets[1].data = spent;
+		balanceLineChart.update();
+	},
 
 	initChart: function() {
 		var ctx = document.getElementById("kWhBarChart").getContext('2d');
@@ -110,23 +146,5 @@ chart = {
 		        }
 		    }
 		});
-	},
-
-	updateKwhBarChartData: function(buyed, sold){
-		kWhBarChart.data.datasets[0].data = buyed;
-		kWhBarChart.data.datasets[1].data = sold;
-		kWhBarChart.update();
-	},
-
-	updateStoragePieChartData: function(labels, values){
-		storagePieChart.data.labels = labels;
-		storagePieChart.data.datasets[0].data = values;
-		storagePieChart.update();
-	},
-
-	updateBalanceLineChartData: function(earned, spent){
-		balanceLineChart.data.datasets[0].data = earned;
-		balanceLineChart.data.datasets[1].data = spent;
-		balanceLineChart.update();
 	}
 };

@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    App.init();
+});
+
 App = {
   web3Provider: null,
   contracts: {},
@@ -47,14 +51,19 @@ App = {
       if (error)
         console.log('Error in myEvent event handler: ' + error);
       else
-        console.log("Evento: "+eventResult.event);
         if(eventResult.event == "StorageCreated"){
-            storageDisplay.addToList(eventResult.args);
-        }else if(eventResult.event == "Sell"){
+            Storage.addToList(eventResult.args);
+        } else if(eventResult.event == "Sell"){
             web3.eth.getBlock(eventResult.blockNumber, function(error, result){
                 if(!error){
-                    console.log(eventResult);
-                    historyTable.addToHistory(eventResult.args.prosumerAddress, eventResult.args.storageOwner, eventResult.args.storageId, eventResult.event, eventResult.args.quantity, eventResult.args.earned, result.timestamp);
+                    History.addToHistory(eventResult.args.prosumerAddress, eventResult.args.storageOwner, eventResult.args.storageId, eventResult.event, eventResult.args.quantity, eventResult.args.earned, result.timestamp);
+                }else
+                    console.error(error);
+            });
+        } else if(eventResult.event == "Buy"){
+            web3.eth.getBlock(eventResult.blockNumber, function(error, result){
+                if(!error){
+                    History.addToHistory(eventResult.args.prosumerAddress, eventResult.args.storageOwner, eventResult.args.storageId, eventResult.event, eventResult.args.quantity, eventResult.args.paid, result.timestamp);
                 }else
                     console.error(error);
             });
@@ -63,27 +72,16 @@ App = {
   },
 
   render: async function(){
-
     let instance = await App.contracts.Energy.at(App.contractAddress);
+    $("#user-account").html(App.userAccount);
+    $("#user-account-img").attr("data-jdenticon-value",App.userAccount);
+    jdenticon.update('canvas');
+    //Codice da eseguire se l'utente è anche un energy manager
     if(await instance.isEnergyManager(App.userAccount)){
         $(".energy-manager").show();
     }
-    
+    //Prima sezione che verrà caricata
     home();
-  },
-
-  renderHome: async function(){
-    let instance = await App.contracts.Energy.at(App.contractAddress);
-    let currentKwh = await instance.getPossessedkWh(App.userAccount);
-    $("#balanceKwh").text(currentKwh);
-
-
-    web3.eth.getBalance(App.userAccount, function(error, result){
-        if(!error)
-            $("#balanceEth").text(result);
-        else
-            console.error(error);
-    });
   },
 
   giveMeKwh: async function(){
@@ -93,17 +91,13 @@ App = {
 
 }
 
-$(document).ready(function() {
-    App.init();
-});
-
 function home(){
 	cleanWindow();
 	$('#home-button').addClass('active');
     $("#dinamic-content").load("home.html");
     $("input#search").attr("placeholder", "Search account statistic...");
     $("#page-title").html("User page");
-    App.renderHome();
+    UserProfile.render();
 }
 
 function history(){
@@ -112,7 +106,7 @@ function history(){
     $("#dinamic-content").load("history.html");
     $("input#search").attr("placeholder", "Search account history...");
     $("#page-title").html("History");
-    historyTable.render();
+    History.render();
 }
 
 function storage(){
@@ -121,7 +115,7 @@ function storage(){
     $("#dinamic-content").load("storage.html");
     $("input#search").attr("placeholder", "Search storage...");
     $("#page-title").html("Storage page");
-    storageDisplay.render();
+    Storage.render();
 }
 
 function mystorage(){
