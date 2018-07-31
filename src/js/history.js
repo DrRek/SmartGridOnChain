@@ -1,8 +1,41 @@
 historyTable = {
-	boh: function(){},
+	history: [],
+
 	addToHistory: function(prosumer, storage, id, type, quantity, charge, date) {
-		var prosumerString = "<td>"+prosumer.substring(0,10)+"...</td>";
-		var storageString = "<td>"+storage.substring(0,10)+"...</td>";
-		$("tbody.history").prepend("<tr>"+prosumerString+storageString+"<td>"+id+"</td><td>"+type+"</td><td>"+quantity+"</td><td>"+charge+"</td><td class='text-right'>"+date+"</td></tr>");
-	}
+		var temp = [];
+		temp[0] = prosumer;
+		temp[1] = storage;
+		temp[2] = id;
+		temp[3] = type;
+		temp[4] = quantity;
+		temp[5] = charge;
+		temp[6] = date;
+		historyTable.history.push(temp);
+	},
+
+	addToHistoryTable: function(element){
+		var prosumerString = "<td>"+element[0].substring(0,10)+"...</td>";
+		var storageString = "<td>"+element[1].substring(0,10)+"...</td>";
+		
+		waitForEl("tbody#history", function() {
+  			$("tbody#history").append("<tr>"+prosumerString+storageString+"<td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td>"+element[5]+"</td><td class='text-right'>"+element[6]+"</td></tr>");
+		});
+	},
+
+	render: function(){
+		for(var i = 0; i < historyTable.history.length; i++){
+			historyTable.addToHistoryTable(historyTable.history[i]);
+		}
+	} 
+};
+
+//TODO: Sistemare questa funzione per aspettare che la pagina venga creata
+var waitForEl = function(selector, callback) {
+  if (jQuery(selector).length) {
+    callback();
+  } else {
+    setTimeout(function() {
+      waitForEl(selector, callback);
+    }, 100);
+  }
 };

@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <div class="panel-header panel-header-lg">
    <canvas id="kWhBarChart"></canvas>
 </div>
@@ -71,10 +74,27 @@
             </div>
             <div class="card-body">
                <div class="chart-area" style="text-align: center; padding-top: 10%; padding-bottom: 10%;">
-                  Current kWh: <br>  <b id="balanceKwh">3.000.000</b>
-                  <hr style="margin: 10%;">
-                  Current Eth: <br> <b id="balanceEth">1,23412</b>
+                  Current kWh: <br />  <b id="balanceKwh">3.000.000</b>
+                  <hr style="margin: 10%;" />
+                  Current Eth: <br /> <b id="balanceEth">1,6666666</b>
                </div>
+            </div>
+            <div class="card-footer">
+               <div class="stats">
+                  <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+         <div class="card card-chart">
+            <div class="card-header">
+               <h5 class="card-category">JUST FOR TEST</h5>
+               <h4 class="card-title">Give kWh</h4>
+            </div>
+            <div class="card-body">
+               <input type="button" name="give" onclick="App.giveMeKwh()" value="Give kWh for test">
             </div>
             <div class="card-footer">
                <div class="stats">
@@ -95,3 +115,4 @@
     chart.updateBalanceLineChartData([5, 10, 15, 20, 10, 5, 10],[10, 20, 15, 5, 15, 20, 10]);
   });
 </script>
+</html>

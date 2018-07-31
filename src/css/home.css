@@ -22,3 +22,17 @@
     border-radius: 0px 10px 10px 0px; 
     border-left: 1px solid white;
 }
+
+.center-in-parent {
+    display: block;
+    margin: auto;
+}
+
+.buy-sell-button {
+    border-radius: 10px 10px 10px 10px; 
+    width: 60px;
+}
+
+.energy-manager {
+    display: none;
+}

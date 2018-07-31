@@ -33,7 +33,7 @@
         <!--jdenticon.update('canvas#img'); quando cambia l'indirizzo-->
         <canvas id="img" data-jdenticon-value="0xdD14F1405e4B139f98AA7969bA866AD6D22702FB" style="margin-left: calc(50% - 50px);" class="rounded-circle" width="100" height="100"></canvas> 
         <a href="#" class="simple-text logo-normal text-center">
-          ADDRESS
+          0xdD14F1405e4B139f98AA7969bA866AD6D22702FB
         </a>
       </div>
 
@@ -57,6 +57,12 @@
               <p>Virtual Storage</p>
             </a>
           </li>
+          <li id="my-storage-button" class="energy-manager">
+            <a href="#" onClick="mystorage(); return false;">
+              <i class="fas fa-industry"></i>
+              <p>My Virtual Storage</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -72,7 +78,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">user page</a>
+            <a id="page-title"class="navbar-brand" href="#">user page</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -128,6 +134,8 @@
   <script src="../js/core/jquery.min.js"></script>
   <script src="../js/core/popper.min.js"></script>
   <script src="../js/core/bootstrap.min.js"></script>
+  <script src="../js/core/web3.min.js"></script>
+  <script src="../js/core/truffle-contract.js"></script>
   <!--  Notifications Plugin    -->
   <script src="../js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
@@ -139,6 +147,8 @@
 
   <script src="../js/history.js"></script>
   <script src="../js/home.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/my-storage.js"></script>
   <script src="../js/controller.js"></script>
 
   <!--Per la scelta delle icone identicon-->

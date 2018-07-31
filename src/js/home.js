@@ -58,7 +58,7 @@ chart = {
 				    ],
 				datasets: [{
 			        data: [0, 0, 0],
-				    backgroundColor: ['rgba(99,255,132,0.4)','rgba(249,99,50,0.4)','rgba(255,25,25,0.4)'],
+				    backgroundColor: ['rgba(99,255,132,0.7)','rgba(249,99,50,0.7)','rgba(255,25,25,0.7)'],
 				    borderColor: ['rgba(255,255,255,1)','rgba(255,255,255,1)','rgba(255,255,255,1)'],
 				    hoverBackgroundColor: ['rgba(99,255,132,0.8)','rgba(249,99,50,0.8)','rgba(255,25,25,0.8)'],
 				    hoverBorderColor: []
@@ -85,7 +85,7 @@ chart = {
 				datasets: [{
 					label: 'Earned',
 					backgroundColor: 'rgba(99,255,132,0.8)',
-					borderColor: 'rgba(99,255,132,0.4)',
+					borderColor: 'rgba(99,255,132,0.6)',
 					data: [0, 0, 0, 0, 0, 0, 0],
 				cubicInterpolationMode: 'monotone',
 				lineTension: 0,
@@ -93,7 +93,7 @@ chart = {
 				}, {
 					label: 'Spent',
 					backgroundColor: 'rgba(255,25,25,0.8)',
-					borderColor: 'rgba(255,25,25,0.4)',
+					borderColor: 'rgba(255,25,25,0.6)',
 					data: [0, 0, 0, 0, 0, 0, 0],
 				cubicInterpolationMode: 'monotone',
 				lineTension: 0,
