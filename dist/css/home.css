@@ -1,0 +1,38 @@
+.button-chart-select {
+	background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    /*padding: 5px 15px;*/
+    margin:0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    border-color: white;
+}
+
+.button-chart-select-left {
+	margin-left: 10%;
+	/*margin-bottom: 10px;*/
+    border-radius: 10px 0px 0px 10px;
+    border-right: 1px solid white;
+}
+
+.button-chart-select-right {
+    border-radius: 0px 10px 10px 0px; 
+    border-left: 1px solid white;
+}
+
+.center-in-parent {
+    display: block;
+    margin: auto;
+}
+
+.buy-sell-button {
+    border-radius: 10px 10px 10px 10px; 
+    width: 60px;
+}
+
+.energy-manager {
+    display: none;
+}
